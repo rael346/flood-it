@@ -1,6 +1,11 @@
-import { Point } from './Point.js';
-import { Orientation } from './Orientation.js';
-import { Hex } from './Hex.js';
+import { Point } from "./Point.js";
+import { Orientation } from "./Orientation.js";
+import { Hex } from "./Hex.js";
+export var LayoutOption;
+(function (LayoutOption) {
+    LayoutOption[LayoutOption["Pointy"] = 0] = "Pointy";
+    LayoutOption[LayoutOption["Flat"] = 1] = "Flat";
+})(LayoutOption || (LayoutOption = {}));
 export class Layout {
     constructor(orientation, size, origin) {
         this.orientation = orientation;
@@ -27,7 +32,7 @@ export class Layout {
     hexCornerOffset(corner) {
         var M = this.orientation;
         var size = this.size;
-        var angle = 2.0 * Math.PI * (M.start_angle - corner) / 6.0;
+        var angle = (2.0 * Math.PI * (M.start_angle - corner)) / 6.0;
         return new Point(size.x * Math.cos(angle), size.y * Math.sin(angle));
     }
     polygonCorners(h) {

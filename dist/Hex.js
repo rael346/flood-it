@@ -59,8 +59,8 @@ export class Hex {
     }
     linedraw(b) {
         var N = this.distance(b);
-        var a_nudge = new Hex(this.q + 1e-06, this.r + 1e-06, this.s - 2e-06);
-        var b_nudge = new Hex(b.q + 1e-06, b.r + 1e-06, b.s - 2e-06);
+        var a_nudge = new Hex(this.q + 1e-6, this.r + 1e-6, this.s - 2e-6);
+        var b_nudge = new Hex(b.q + 1e-6, b.r + 1e-6, b.s - 2e-6);
         var results = [];
         var step = 1.0 / Math.max(N, 1);
         for (var i = 0; i <= N; i++) {
@@ -69,6 +69,20 @@ export class Hex {
         return results;
     }
 }
-Hex.directions = [new Hex(1, 0, -1), new Hex(1, -1, 0), new Hex(0, -1, 1), new Hex(-1, 0, 1), new Hex(-1, 1, 0), new Hex(0, 1, -1)];
-Hex.diagonals = [new Hex(2, -1, -1), new Hex(1, -2, 1), new Hex(-1, -1, 2), new Hex(-2, 1, 1), new Hex(-1, 2, -1), new Hex(1, 1, -2)];
+Hex.directions = [
+    new Hex(1, 0, -1),
+    new Hex(1, -1, 0),
+    new Hex(0, -1, 1),
+    new Hex(-1, 0, 1),
+    new Hex(-1, 1, 0),
+    new Hex(0, 1, -1),
+];
+Hex.diagonals = [
+    new Hex(2, -1, -1),
+    new Hex(1, -2, 1),
+    new Hex(-1, -1, 2),
+    new Hex(-2, 1, 1),
+    new Hex(-1, 2, -1),
+    new Hex(1, 1, -2),
+];
 //# sourceMappingURL=Hex.js.map

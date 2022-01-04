@@ -1,20 +1,36 @@
 import { Hex } from "./Hex.js";
-import { Layout } from "./Layout.js";
+import { Layout, LayoutOption } from "./Layout.js";
+import { MapType } from "./MapType.js";
+import { Orientation } from "./Orientation.js";
 import { Point } from "./Point.js";
 
-const canvas = document.querySelector(".myCanvas") as HTMLCanvasElement;
-const width = (canvas.width = window.innerWidth / 2);
-const height = (canvas.height = window.innerHeight / 2);
-const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-
-const origin = new Point(width / 2, height / 2);
-const layout = new Layout(Layout.pointy, new Point(15, 15), origin);
+const testCanvas = document.querySelector(".myCanvas") as HTMLCanvasElement;
+testCanvas.width = window.innerWidth;
+testCanvas.height = window.innerHeight;
 
 class FloodIt {
 	private map: Map<Hex, string>;
-	private colors;
+	private colors: string[];
+	private origin: Point;
+	private layout: Layout;
+	private orientation: Orientation;
+	private ctx: CanvasRenderingContext2D;
 
-	constructor() {
+	constructor(
+		private canvas: HTMLCanvasElement,
+		private layoutOption: LayoutOption,
+		private mapType: MapType,
+		private cellSize: number,
+		private mapSize: number,
+		private numColors: number
+	) {
+		const cvs = canvas.getContext("2d");
+		if (cvs === null) {
+			throw new Error("Invalid Canvas element. Please use HTML canvas.");
+		} else {
+			this.ctx = cvs;
+		}
+
 		this.map = new Map();
 		this.colors = [
 			"red",
@@ -25,7 +41,21 @@ class FloodIt {
 			"cyan",
 			"#66f",
 			"#f0f",
-		];
+		].slice(0, this.numColors);
+
+		this.origin = new Point(this.canvas.width / 2, this.canvas.height / 2);
+
+		if (this.layoutOption === LayoutOption.Flat) {
+			this.orientation = Layout.flat;
+		} else {
+			this.orientation = Layout.pointy;
+		}
+
+		this.layout = new Layout(
+			this.orientation,
+			new Point(this.cellSize, this.cellSize),
+			this.origin
+		);
 	}
 
 	private rand(n: number) {
@@ -33,16 +63,16 @@ class FloodIt {
 	}
 
 	private drawHexagon(h: Hex, c: string) {
-		ctx.fillStyle = c;
-		let corners = layout.polygonCorners(h);
-		ctx.beginPath();
+		this.ctx.fillStyle = c;
+		let corners = this.layout.polygonCorners(h);
+		this.ctx.beginPath();
 		for (const corner of corners) {
-			ctx.lineTo(corner.x, corner.y);
+			this.ctx.lineTo(corner.x, corner.y);
 		}
 
-		ctx.closePath();
-		ctx.fill();
-		ctx.stroke();
+		this.ctx.closePath();
+		this.ctx.fill();
+		this.ctx.stroke();
 	}
 
 	private initHexMap(map_radius: number): void {
@@ -50,7 +80,10 @@ class FloodIt {
 			let r1 = Math.max(-map_radius, -q - map_radius);
 			let r2 = Math.min(map_radius, -q + map_radius);
 			for (let r = r1; r <= r2; r++) {
-				this.map.set(new Hex(q, r, -q - r), this.colors[this.rand(8)]);
+				this.map.set(
+					new Hex(q, r, -q - r),
+					this.colors[this.rand(this.numColors)]
+				);
 			}
 		}
 	}
@@ -87,13 +120,14 @@ class FloodIt {
 	}
 
 	public run() {
-		this.initHexMap(10);
+		if (this.mapType === MapType.Hexagon) {
+			this.initHexMap(this.mapSize);
+		}
+		// initParallelMap(-10, 10, -10, 10);
+		// initVertTriangleMap(10);
+		// initRectangleMap(10, 10);
 		this.drawHexMap();
 	}
-
-	// initParallelMap(-10, 10, -10, 10);
-	// initVertTriangleMap(10);
-	// initRectangleMap(10, 10);
 }
 
-new FloodIt().run();
+new FloodIt(testCanvas, LayoutOption.Pointy, MapType.Hexagon, 10, 5, 8).run();
