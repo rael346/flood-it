@@ -1,12 +1,6 @@
-import { Orientation } from "./orientation.js";
-
-export class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
+import { Point } from './Point.js';
+import { Orientation } from './Orientation.js';
+import { Hex } from './Hex.js';
 export class Layout {
     constructor(orientation, size, origin) {
         this.orientation = orientation;
@@ -28,7 +22,7 @@ export class Layout {
         var pt = new Point((p.x - origin.x) / size.x, (p.y - origin.y) / size.y);
         var q = M.b0 * pt.x + M.b1 * pt.y;
         var r = M.b2 * pt.x + M.b3 * pt.y;
-        return new Hex(q, r);
+        return new Hex(q, r, -q - r);
     }
     hexCornerOffset(corner) {
         var M = this.orientation;
@@ -48,3 +42,4 @@ export class Layout {
 }
 Layout.pointy = new Orientation(Math.sqrt(3.0), Math.sqrt(3.0) / 2.0, 0.0, 3.0 / 2.0, Math.sqrt(3.0) / 3.0, -1.0 / 3.0, 0.0, 2.0 / 3.0, 0.5);
 Layout.flat = new Orientation(3.0 / 2.0, 0.0, Math.sqrt(3.0) / 2.0, Math.sqrt(3.0), 2.0 / 3.0, 0.0, -1.0 / 3.0, Math.sqrt(3.0) / 3.0, 0.0);
+//# sourceMappingURL=Layout.js.map

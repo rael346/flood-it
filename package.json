@@ -1,0 +1,23 @@
+{
+  "name": "flood-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rael346/flood-it.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rael346/flood-it/issues"
+  },
+  "homepage": "https://github.com/rael346/flood-it#readme",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}

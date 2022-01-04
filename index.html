@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Flood It!</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Flood It!</title>
-</head>
-
-<body>
-    <canvas class="myCanvas"></canvas>
-    <script type="module" src="script/main.js"></script>
-</body>
-
+	<body>
+		<!-- <svg class"drawing" width="1000" height="1000" version="2" xmlns="https://www.w3.org/TR/SVG2">
+        <polygon points="300,150 225,280 75,280 0,150 75,20 225,20" fill="yellow" stroke="black" stroke-width="5" />
+    </svg> -->
+		<div id="canvas-container">
+			<canvas class="myCanvas"></canvas>
+		</div>
+		<script type="module" src="dist/index.js"></script>
+	</body>
 </html>

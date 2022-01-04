@@ -11,3 +11,4 @@ export class Orientation {
         this.start_angle = start_angle;
     }
 }
+//# sourceMappingURL=Orientation.js.map

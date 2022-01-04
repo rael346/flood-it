@@ -1,4 +1,10 @@
 body {
-  margin: 0;
-  overflow: hidden;
+	margin: 0;
+	overflow: hidden;
+}
+
+#canvas-container {
+	margin: auto 0;
+	width: 100%;
+	text-align: center;
 }
