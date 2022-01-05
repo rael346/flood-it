@@ -24,12 +24,18 @@ class FloodIt {
 		private mapSize: number,
 		private numColors: number
 	) {
-		const cvs = canvas.getContext("2d");
-		if (cvs === null) {
+		const context = canvas.getContext("2d");
+		if (context === null) {
 			throw new Error("Invalid Canvas element. Please use HTML canvas.");
 		} else {
-			this.ctx = cvs;
+			this.ctx = context;
 		}
+
+		canvas.addEventListener("click", (e) => {
+			const i = this.ctx.getImageData(e.x, e.y, 1, 1).data;
+			const color = "rgb(" + i[0] + ", " + i[1] + ", " + i[2] + ")";
+			console.log(color);
+		});
 
 		this.map = new Map();
 		this.colors = [
